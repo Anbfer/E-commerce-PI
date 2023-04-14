@@ -157,7 +157,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         //AVALIAR VALIDAÇÃO DO NOME
         String nome = txtNome.getText();
-
+        double lblValordoProduto = txtValor.getText();
         //validação do ID
 
         try {
@@ -180,14 +180,13 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         //validação do valor do protudo
         //AVALIAR, Não esta aceitando numeros double/float, apenas inteiros
-
-        try {
-            ValordoProduto = Double.parseDouble(txtValor.getText());
+        /*try {
+            valor = Double.parseDouble(txtValor.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "O valor do produto deve ser um número decimal", "Erro", JOptionPane.ERROR_MESSAGE);
             txtValor.requestFocus();
             return;
-        }
+        }*/
        
     }//GEN-LAST:event_btnOkActionPerformed
 
