@@ -154,7 +154,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
         int id = 0, quantidade = 0;
         double valor;
+
+        //AVALIAR VALIDAÇÃO DO NOME
         String nome = txtNome.getText();
+
+        //validação do ID
 
         try {
             id = Integer.parseInt(txtID.getText());
@@ -164,16 +168,21 @@ public class CadastroProduto extends javax.swing.JFrame {
             return;
         }
 
+        //validação de quantidade do produto
+
         try {
             quantidade = Integer.parseInt(txtQuantidade.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "A quantidade deve ser um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "A quantidade de produtos deve ser um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
             txtQuantidade.requestFocus();
             return;
         }
 
+        //validação do valor do protudo
+        //AVALIAR, Não esta aceitando numeros double/float, apenas inteiros
+
         try {
-            valor = Double.parseDouble(txtValor.getText());
+            ValordoProduto = Double.parseDouble(txtValor.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "O valor do produto deve ser um número decimal", "Erro", JOptionPane.ERROR_MESSAGE);
             txtValor.requestFocus();
