@@ -62,7 +62,7 @@ public class Validadores {
             JOptionPane.showMessageDialog(null, "O ID deve ser um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else if (txtId.equals("")){
+        if (txtId.equals("")){
             JOptionPane.showMessageDialog(null, "O ID deve ser preenchido.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -75,7 +75,7 @@ public class Validadores {
             JOptionPane.showMessageDialog(null, "O Nome deve conter apenas letras", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else if (txtNome.equals("")){
+        if (txtNome.equals("")){
             JOptionPane.showMessageDialog(null, "O Nome deve ser preenchido.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -87,7 +87,7 @@ public class Validadores {
             JOptionPane.showMessageDialog(null, "O e-mail é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else if (txtEmail.equals("")){
+        if (txtEmail.equals("")){
             JOptionPane.showMessageDialog(null, "O e-mail ser preenchido.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -99,7 +99,7 @@ public class Validadores {
             JOptionPane.showMessageDialog(null, "O telefone é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else if (txtTelefone.equals("")){
+        if (txtTelefone.equals("")){
             JOptionPane.showMessageDialog(null, "O telefone ser preenchido.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -111,7 +111,7 @@ public class Validadores {
             JOptionPane.showMessageDialog(null, "O CPF é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else if (txtCpf.equals("")){
+        if (txtCpf.equals("")){
             JOptionPane.showMessageDialog(null, "O CPF ser preenchido.", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }

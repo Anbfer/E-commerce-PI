@@ -225,7 +225,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         
         valida.setTxtCpf(txtCpf.getText());
         valida.setTxtEmail(txtEmail.getText());
-
         valida.setTxtId(txtId.getText());
         valida.setTxtNome(txtNome.getText());
         valida.setTxtTelefone(txtTelefone.getText());
@@ -236,16 +235,13 @@ public class CadastroCliente extends javax.swing.JFrame {
         String nome = valida.getTxtNome();
         String telefone = valida.getTxtTelefone();
         
-        valida.validarCpf(cpf);
-        valida.validarEmail(email);
-        valida.validarId(id);
-        valida.validarNome(nome);
-        valida.validarTelefone(telefone);
+
         
         if( valida.validarCpf(cpf) && valida.validarEmail(email) && valida.validarId(id) && valida.validarNome(nome) && valida.validarTelefone(telefone)) {
             new CadastroProduto().setVisible(true);
             this.setVisible(false);
         }
+        
     }//GEN-LAST:event_btnOkActionPerformed
 
     /**
