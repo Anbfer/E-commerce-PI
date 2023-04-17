@@ -16,6 +16,7 @@ public class Validadores {
     private String txtCpf;
     private String txtEmail;
     private String txtTelefone;
+    private String txtQtd;
 
     public String getTxtId() {
         return txtId;
@@ -56,6 +57,16 @@ public class Validadores {
     public void setTxtTelefone(String txtTelefone) {
         this.txtTelefone = txtTelefone;
     }
+    
+    public String getTxtQtd() {
+        return txtQtd;
+    }
+
+    public void setTxtQtd(String txtId) {
+        this.txtQtd = txtQtd;
+    }
+    
+    
     
     public boolean validarId (String txtId){       
         if(!txtId.matches("\\d+")){
@@ -118,4 +129,20 @@ public class Validadores {
         
         return true;
     }
+    
+    
+    public boolean validarQtd (String txtQtd){
+        if(!txtQtd.matches("^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$")){
+            JOptionPane.showMessageDialog(null, "A Quantidade é inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (txtQtd.equals("")){
+            JOptionPane.showMessageDialog(null, "A Quantiade deve ser preenchida.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
 }
