@@ -77,7 +77,7 @@ public class Validadores {
 
     public boolean validarId(String txtId) {
         if (!txtId.matches("^\\d{1,4}$")) {
-            JOptionPane.showMessageDialog(null, "O ID deve ser um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O ID é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (txtId.equals("")) {
@@ -90,7 +90,7 @@ public class Validadores {
     public boolean validarNome(String txtNome) {
         String regex = "^[a-zA-ZÀ-ÿ ]{1,55}$";
         if (!txtNome.matches(regex)) {
-            JOptionPane.showMessageDialog(null, "O Nome deve conter apenas letras", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O Nome é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (txtNome.equals("")) {
