@@ -11,6 +11,20 @@ package com.mycompany.pi;
 public class PI extends Validadores {
 
     public static void main(String[] args) {
+
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
+                .getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                try {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(PI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
         new CadastroCliente().setVisible(true);
     }
 }
