@@ -270,7 +270,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         
 
         
-        if( valida.validarCpf(cpf) && valida.validarEmail(email) && valida.validarId(id) && valida.validarNome(nome) && valida.validarTelefone(telefone)) {
+        if( valida.validarId(id) && valida.validarNome(nome) && valida.validarCpf(cpf) && valida.validarEmail(email) && valida.validarTelefone(telefone)) {
             new CadastroProduto().setVisible(true);
             this.setVisible(false);
         }
