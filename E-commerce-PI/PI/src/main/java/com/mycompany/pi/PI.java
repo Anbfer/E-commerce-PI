@@ -4,6 +4,10 @@
 
 package com.mycompany.pi;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author angelo.bferreira
