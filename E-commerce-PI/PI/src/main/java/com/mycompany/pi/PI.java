@@ -11,6 +11,6 @@ package com.mycompany.pi;
 public class PI {
 
     public static void main(String[] args) {
-        new CadastroCliente().setVisible(true);
+        new TelaInicial().setVisible(true);
     }
 }

@@ -39,7 +39,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         telefone = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
-        combSexo = new javax.swing.JComboBox<>();
+        combGenero = new javax.swing.JComboBox<>();
         txtCpf = new javax.swing.JFormattedTextField();
         txtEmail = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
@@ -55,7 +55,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         nome1.setText("Nome:");
 
-        sexo.setText("Sexo:");
+        sexo.setText("Gênero:");
 
         cpf.setText("CPF:");
 
@@ -65,10 +65,10 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         telefone.setText("Telefone:");
 
-        combSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Outro", " " }));
-        combSexo.addActionListener(new java.awt.event.ActionListener() {
+        combGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", "Outro", " " }));
+        combGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combSexoActionPerformed(evt);
+                combGeneroActionPerformed(evt);
             }
         });
 
@@ -131,7 +131,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -155,7 +155,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sexo)
-                    .addComponent(combSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpf)
@@ -215,9 +215,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void combSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combSexoActionPerformed
+    private void combGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combGeneroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_combSexoActionPerformed
+    }//GEN-LAST:event_combGeneroActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         // TODO add your handling code here:
@@ -282,7 +282,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnOk;
-    private javax.swing.JComboBox<String> combSexo;
+    private javax.swing.JComboBox<String> combGenero;
     private javax.swing.JLabel cpf;
     private javax.swing.JLabel email1;
     private javax.swing.JLabel endereco;

@@ -97,7 +97,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="combSexo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="combGenero" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtCpf" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -130,7 +130,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="sexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="combSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="combGenero" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -175,7 +175,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="sexo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sexo:"/>
+                <Property name="text" type="java.lang.String" value="G&#xea;nero:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="cpf">
@@ -202,7 +202,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtNome">
             </Component>
-            <Component class="javax.swing.JComboBox" name="combSexo">
+            <Component class="javax.swing.JComboBox" name="combGenero">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -214,7 +214,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combSexoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combGeneroActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
