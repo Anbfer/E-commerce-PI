@@ -4,6 +4,8 @@
  */
 package com.mycompany.pi;
 
+import java.awt.Color;
+import static java.awt.Color.white;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +48,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         txtTelefone = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Cliente");
@@ -80,6 +83,14 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         btnCancelar.setFont(cpf.getFont());
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseExited(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -88,6 +99,14 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         btnOk.setFont(cpf.getFont());
         btnOk.setText("OK");
+        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOkMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOkMouseExited(evt);
+            }
+        });
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOkActionPerformed(evt);
@@ -179,19 +198,29 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        jLabel1.setText("Cadastro de Clientes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(68, 68, 68))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -200,11 +229,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,12 +270,30 @@ public class CadastroCliente extends javax.swing.JFrame {
         
 
         
-        if( valida.validarCpf(cpf) && valida.validarEmail(email) && valida.validarId(id) && valida.validarNome(nome) && valida.validarTelefone(telefone)) {
+        if( valida.validarId(id) && valida.validarNome(nome) && valida.validarCpf(cpf) && valida.validarEmail(email) && valida.validarTelefone(telefone)) {
             new CadastroProduto().setVisible(true);
             this.setVisible(false);
         }
         
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseEntered
+        Color buttonColor = Color.decode("#2E8B57");
+    btnOk.setBackground(buttonColor);
+    }//GEN-LAST:event_btnOkMouseEntered
+
+    private void btnOkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseExited
+        btnOk.setBackground(white);
+    }//GEN-LAST:event_btnOkMouseExited
+
+    private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited
+        btnCancelar.setBackground(white);
+    }//GEN-LAST:event_btnCancelarMouseExited
+
+    private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
+        Color buttonColor = Color.decode("#ff6961");
+    btnCancelar.setBackground(buttonColor);
+    }//GEN-LAST:event_btnCancelarMouseEntered
 
     /**
      * @param args the command line arguments
@@ -287,6 +338,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel email1;
     private javax.swing.JLabel endereco;
     private javax.swing.JLabel id;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nome1;
