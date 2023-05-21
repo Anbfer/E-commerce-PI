@@ -28,7 +28,8 @@ public class PI extends Validadores {
                 }
             }
         }
+        
+        new TelaInicial().setVisible(true);
 
-        new CadastroCliente().setVisible(true);
     }
 }
