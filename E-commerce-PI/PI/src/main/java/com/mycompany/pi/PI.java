@@ -16,8 +16,6 @@ public class PI extends Validadores {
 
     public static void main(String[] args) {
 
-        new TelaInicial().setVisible(true);
-
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
                 .getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
@@ -30,8 +28,8 @@ public class PI extends Validadores {
                 }
             }
         }
-
-        new CadastroCliente().setVisible(true);
+        
+        new TelaInicial().setVisible(true);
 
     }
 }
