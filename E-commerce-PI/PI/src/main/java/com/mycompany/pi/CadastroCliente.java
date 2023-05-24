@@ -263,7 +263,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             
             ClienteDAO.salvar(consumidor);
             
-            new CadastroProduto().setVisible(true);
+            new TelaInicial().setVisible(true);
 
             this.setVisible(false);
 

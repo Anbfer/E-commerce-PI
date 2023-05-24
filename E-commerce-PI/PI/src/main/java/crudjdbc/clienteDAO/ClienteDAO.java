@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,7 +38,7 @@ public class ClienteDAO {
             
             comandoSQL.setString(1, obj.getNome());
             comandoSQL.setString(2, obj.getGenero());
-            comandoSQL.setFloat(3, Float.parseFloat(obj.getCpf()));
+            comandoSQL.setString(3, obj.getCpf());
             comandoSQL.setString(4, obj.getEmail());
             comandoSQL.setString(5, obj.getEndereco());
             comandoSQL.setString(6, obj.getTelefone());
@@ -47,6 +48,7 @@ public class ClienteDAO {
             
             if(linhasAfetadas>0){
                 retorno = true;
+                JOptionPane.showMessageDialog(null, "Cliente Cadastrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
             
         } catch (ClassNotFoundException ex) {
