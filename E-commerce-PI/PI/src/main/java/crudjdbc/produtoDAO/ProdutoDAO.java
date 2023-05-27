@@ -25,14 +25,14 @@ public class ProdutoDAO {
         try {
             //Passo 1 - Carregaro o Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://127.0.0.1:3306/javamarketbd";
+            String url = "jdbc:mysql://localhost:4306/javamarketbd";
             
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = DriverManager.getConnection(url, "root", "P@$$w0rd");
             
             //Passo 3 - Prepara o comando SQL
             PreparedStatement comandoSQL = conexao.prepareStatement("INSERT INTO produto "
-                        + "(nomeProd, descProd, catProd,validadeProd, qtdProd, valProd) VALUES(?,?,?,?,?,?)"); 
+                        + "(nomeProd, descProd, catProd, valProd, qtdProd, valProd) VALUES(?,?,?,?,?,?)"); 
             
             
             comandoSQL.setString(1, obj.getNomeProduto());
@@ -51,9 +51,9 @@ public class ProdutoDAO {
             }
             
         } catch (ClassNotFoundException ex) {
-            System.out.println("Erro ao carregar o Driver" + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao carregar o Driver" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
-            System.out.println("Erro ao abrir a conexao" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro no banco de dados, informe esta mensagem ao suporte: '" + ex.getMessage() + "' ", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         
     

@@ -4,6 +4,8 @@
  */
 package com.mycompany.pi;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Angelo
@@ -207,8 +209,14 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoProdutoActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        // TODO add your handling code here:
-        //JOptionPane
+        Object[] options = {"Confirmar", "Cancelar"};
+
+        int escolha = JOptionPane.showOptionDialog(null, "Deseja encerrar o programa?", "Fechar", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        
+        if(escolha == 0){
+            System.exit(0);
+        }
+        
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
