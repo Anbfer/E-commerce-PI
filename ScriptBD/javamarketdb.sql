@@ -1,6 +1,7 @@
 create database JavaMarketBD;
 use JavaMarketBD;
 
+
 create table cliente (
 id_cliente int primary key auto_increment,
 nomeClie varchar(40) not null,

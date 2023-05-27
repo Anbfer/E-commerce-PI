@@ -151,7 +151,7 @@ public class Validadores {
     }
 
     public boolean validarValor(String txtValor) {
-        if (!txtValor.matches("^\\d+(,\\d{1,2})?$")) {
+        if (!txtValor.matches("^(?:(?:\\d{1,3}(?:[,. ]\\d{3})*|[1-9]\\d*)(?:[.,]\\d{1,2})?|\\d+(?:[.,]\\d{1,2})?)$")) {
             JOptionPane.showMessageDialog(null, "O Valor é inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }

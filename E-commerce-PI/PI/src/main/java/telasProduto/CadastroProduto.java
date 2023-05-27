@@ -38,7 +38,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         categoria = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         validadeData = new com.toedter.calendar.JDateChooser();
-        txtValorTotal = new javax.swing.JTextField();
+        txtValorProduto = new javax.swing.JTextField();
 
         btnCancelar.setText("VOLTAR");
         btnCancelar.setMaximumSize(new java.awt.Dimension(72, 23));
@@ -104,6 +104,12 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Validade:");
 
+        txtValorProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +144,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lblValordoProduto)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorTotal))
+                                        .addComponent(txtValorProduto))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lblQuantidade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -182,7 +188,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValordoProduto)
-                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,6 +217,10 @@ public class CadastroProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_categoriaActionPerformed
 
+    private void txtValorProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorProdutoActionPerformed
+
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtQuantidadeActionPerformed
         // TODO add your handling code here:
 
@@ -233,7 +243,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         String nome = valida.getTxtNome();
         String qtd = valida.getTxtQtd();
-        String valorProd = txtValorTotal.getText();
+        String valorProd = txtValorProduto.getText();
 
         Produto produto = new Produto();
 
@@ -244,14 +254,11 @@ public class CadastroProduto extends javax.swing.JFrame {
             produto.setDescricao(txtDesc.getText());
             produto.setNomeProduto(nome);
             produto.setQuantidade(qtd);
-            produto.setValorProduto(txtValorTotal.getText());
+            produto.setValorProduto(txtValorProduto.getText());
 
             boolean retorno = ProdutoDAO.salvarProd(produto);
 
-            if (retorno) {
-                new TelaVendas().setVisible(true);
-                this.setVisible(false);
-            } else {
+            if (!retorno) {
                 JOptionPane.showMessageDialog(null, "Produto não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -321,7 +328,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDesc;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtQuantidade;
-    private javax.swing.JTextField txtValorTotal;
+    private javax.swing.JTextField txtValorProduto;
     private com.toedter.calendar.JDateChooser validadeData;
     // End of variables declaration//GEN-END:variables
 }

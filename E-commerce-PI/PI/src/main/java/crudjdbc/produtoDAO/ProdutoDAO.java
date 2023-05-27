@@ -32,7 +32,7 @@ public class ProdutoDAO {
             
             //Passo 3 - Prepara o comando SQL
             PreparedStatement comandoSQL = conexao.prepareStatement("INSERT INTO produto "
-                        + "(nomeProd, descProd, catProd, valProd, qtdProd, valProd) VALUES(?,?,?,?,?,?)"); 
+                        + "(nomeProd, descProd, catProd, validadeProd, qtdProd, valProd) VALUES(?,?,?,?,?,?)"); 
             
             
             comandoSQL.setString(1, obj.getNomeProduto());
@@ -40,7 +40,7 @@ public class ProdutoDAO {
             comandoSQL.setString(3, obj.getCategoria());
             comandoSQL.setString(4, obj.getValidade());
             comandoSQL.setString(5, obj.getQuantidade());
-            comandoSQL.setFloat(6, obj.getValorProduto());
+            comandoSQL.setFloat(6, Float.parseFloat(obj.getValorProduto().replaceAll(",", ".")));
             
             //Passo 4 - Executar comando SQL
             int linhasAfetadas = comandoSQL.executeUpdate();

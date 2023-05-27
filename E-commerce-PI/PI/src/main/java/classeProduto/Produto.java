@@ -12,7 +12,7 @@ public class Produto {
     private String id;
     private String nomeProduto;
     private String quantidade;
-    private Float valorProduto;
+    private String valorProduto;
     private String descricao;
     private String categoria;
     private String validade;
@@ -66,12 +66,12 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public Float getValorProduto() {
+    public String getValorProduto() {
         return valorProduto;
     }
 
     public void setValorProduto(String valorProduto) {
-        this.valorProduto = Float.parseFloat(valorProduto);
+        this.valorProduto = valorProduto;
     }
     
      
