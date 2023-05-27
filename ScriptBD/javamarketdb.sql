@@ -5,10 +5,10 @@ create table cliente (
 id_cliente int primary key auto_increment,
 nomeClie varchar(40) not null,
 genero varchar(40),
-cpf varchar(11) unique not null,
+cpf varchar(40) unique not null,
 email varchar(40) not null,
 endereco varchar(80) not null,
-telefone varchar(11) not null);
+telefone varchar(40) not null);
 
 create table produto(
 id_produto int primary key auto_increment, 
@@ -16,7 +16,7 @@ nomeProd varchar(40) unique not null,
 descProd varchar (40), 
 catProd varchar(40) not null, 
 qtdProd int not null, 
-valProd decimal(10,2) not null);
+valProd decimal(10,2));
 
 create table vendaProdutoIndividual (
     id_vendaIndividual int primary key auto_increment,
