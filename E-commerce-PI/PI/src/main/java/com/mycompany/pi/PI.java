@@ -4,6 +4,8 @@
 
 package com.mycompany.pi;
 
+import validadores.Validadores;
+import telaInicial.TelaInicial;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
