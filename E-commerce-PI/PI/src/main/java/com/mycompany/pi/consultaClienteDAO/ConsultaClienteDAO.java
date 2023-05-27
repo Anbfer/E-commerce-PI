@@ -13,12 +13,56 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Angelo
  */
 public class ConsultaClienteDAO {
+
+    public static void pesquisar(JTable tabela) {
+
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarCliente();
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+        //Percorrer a lista e adicionar a tabela
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
+        }
+
+    }
+
+    public static void pesquisar(JTable tabela, String nome) {
+
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteNome(nome);
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+        //Percorrer a lista e adicionar a tabela
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
+        }
+    }
+    /**
+     *
+     * @param tabela
+     * @param cpf
+     */
+    public static void pesquisarCpf(JTable tabela, String cpf) {
+
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteCpf(cpf);
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+        //Percorrer a lista e adicionar a tabela
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
+        }
+
+    }
 
     /**
      *
@@ -73,8 +117,8 @@ public class ConsultaClienteDAO {
         return listaRetorno;
 
     }
-    
-        public static ArrayList<Cliente> listarClienteCpf(String cpf) {
+
+    public static ArrayList<Cliente> listarClienteCpf(String cpf) {
         ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
 
@@ -91,7 +135,7 @@ public class ConsultaClienteDAO {
                     = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
 
             comandoSQL.setString(1, "%" + cpf + "%");
-            
+
             //Passo 4 - Executar o comando SQL
             ResultSet rs = comandoSQL.executeQuery();
 
@@ -187,7 +231,7 @@ public class ConsultaClienteDAO {
             conexao = DriverManager.getConnection(url, "root", "admin");
 
             //Passo 3 - Prepara o comando SQL
-            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE cliente SET nomeClie = ?, genero = ?, cpf = ?, email = ?, endereco = ?, telefone = ? where id = ?");
+            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE cliente SET nomeClie = ?, genero = ?, cpf = ?, email = ?, endereco = ?, telefone = ? where id_cliente = ?");
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getGenero());
@@ -196,7 +240,6 @@ public class ConsultaClienteDAO {
             comandoSQL.setString(5, cliente.getEndereco());
             comandoSQL.setString(6, cliente.getTelefone());
             comandoSQL.setInt(7, cliente.getId());
-            
 
             //Passo 4 - Executar comando SQL
             int linhasAfetadas = comandoSQL.executeUpdate();
@@ -230,7 +273,7 @@ public class ConsultaClienteDAO {
 
             //Passo 3 - Prepara o comando SQL
             PreparedStatement comandoSQL
-                    = conexao.prepareStatement("DELETE FROM cliente WHERE id =? ");
+                    = conexao.prepareStatement("DELETE FROM cliente WHERE id_cliente = ? ");
 
             comandoSQL.setInt(1, id);
 

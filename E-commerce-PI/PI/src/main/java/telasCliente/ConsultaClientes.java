@@ -7,6 +7,8 @@ package telasCliente;
 import classeCliente.Cliente;
 import telaInicial.TelaInicial;
 import com.mycompany.pi.consultaClienteDAO.ConsultaClienteDAO;
+import static java.awt.event.KeyEvent.VK_BACK_SPACE;
+import static java.awt.event.KeyEvent.VK_DELETE;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,7 +48,6 @@ public class ConsultaClientes extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 450));
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -56,11 +57,6 @@ public class ConsultaClientes extends javax.swing.JFrame {
 
         lblCpf.setText("CPF:");
 
-        txtNomePesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomePesquisaActionPerformed(evt);
-            }
-        });
         txtNomePesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePesquisaKeyReleased(evt);
@@ -88,6 +84,11 @@ public class ConsultaClientes extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfPesquisaKeyReleased(evt);
+            }
+        });
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,10 +99,7 @@ public class ConsultaClientes extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Gênero", "CPF", "E-mail", "Endereço", "Telefone"
@@ -113,6 +111,11 @@ public class ConsultaClientes extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -176,7 +179,7 @@ public class ConsultaClientes extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
+                        .addContainerGap(64, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,23 +198,20 @@ public class ConsultaClientes extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 713, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1127, 686));
+        setSize(new java.awt.Dimension(1127, 721));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNomePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomePesquisaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int linhaSel = jTable1.getSelectedRow();
         DefaultTableModel modeloTabela = (DefaultTableModel) jTable1.getModel();
 
+        //Resgato as informações da tabela
         int idClienteSel = Integer.parseInt(modeloTabela.getValueAt(linhaSel, 0).toString());
         String nomeClie = modeloTabela.getValueAt(linhaSel, 1).toString();
         String genero = modeloTabela.getValueAt(linhaSel, 2).toString();
@@ -220,8 +220,10 @@ public class ConsultaClientes extends javax.swing.JFrame {
         String endereco = modeloTabela.getValueAt(linhaSel, 5).toString();
         String telefone = modeloTabela.getValueAt(linhaSel, 6).toString();
 
+        //Passo os valores das variáveis para um objeto
         Cliente cliente = new Cliente(idClienteSel, nomeClie, genero, cpf, email, endereco, telefone);
 
+        //Chamo a tela de Cadastro em modo de alteração - Construtor que recebe parametros
         CadastroCliente alteraCadastro = new CadastroCliente(cliente);
         alteraCadastro.setVisible(true);
 
@@ -229,31 +231,27 @@ public class ConsultaClientes extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial().setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
-        ArrayList<Cliente> lista = ConsultaClienteDAO.listarCliente();
-
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
-        //Percorrer a lista e adicionar a tabela
-        for (Cliente consumidor : lista) {
-            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
-        }
+        ConsultaClienteDAO.pesquisar(jTable1);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void txtNomePesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePesquisaKeyReleased
-                ArrayList<Cliente> lista = ConsultaClienteDAO.listarCliente();
-
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
-        //Percorrer a lista e adicionar a tabela
-        for (Cliente consumidor : lista) {
-            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
-        }
+        ConsultaClienteDAO.pesquisar(jTable1, txtNomePesquisa.getText());
     }//GEN-LAST:event_txtNomePesquisaKeyReleased
+
+    private void txtCpfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfPesquisaKeyReleased
+        String cpf = txtCpfPesquisa.getText();
+
+        ConsultaClienteDAO.pesquisarCpf(jTable1, cpf);
+    }//GEN-LAST:event_txtCpfPesquisaKeyReleased
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        if (txtCpfPesquisa.getText().equals("") || txtNomePesquisa.getText().equals("")) {
+            ConsultaClienteDAO.pesquisar(jTable1);
+        }
+    }//GEN-LAST:event_jTable1MouseEntered
 
     /**
      * @param args the command line arguments

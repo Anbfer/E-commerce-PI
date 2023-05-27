@@ -5,6 +5,7 @@
 package telasCliente;
 
 import classeCliente.Cliente;
+import com.mycompany.pi.consultaClienteDAO.ConsultaClienteDAO;
 import telaInicial.TelaInicial;
 import validadores.Validadores;
 import crudjdbc.clienteDAO.ClienteDAO;
@@ -18,39 +19,42 @@ import javax.swing.JOptionPane;
  */
 public class CadastroCliente extends javax.swing.JFrame {
 
-    private Cliente cliente;
-
     /**
      * Creates new form CadastroCliente
      */
-         
+    Cliente cliente;
+
     public CadastroCliente() {
         initComponents();
     }
 
     public CadastroCliente(Cliente cliente) {
         initComponents();
-        
+
         String generoString = String.valueOf(cliente.getGenero());
-        
+
         int genero = 0;
-        
+
         genero = switch (generoString) {
-            case "Masculino" -> 2;
-            case "Feminino" -> 3;
-            case "Outro" -> 4;
-            default -> 0;
+            case "Masculino" ->
+                1;
+            case "Feminino" ->
+                2;
+            case "Outro" ->
+                3;
+            default ->
+                0;
         };
-        
+
         txtNome.setText(String.valueOf(cliente.getNome()));
         combGenero.setSelectedIndex(genero);
         txtCpf.setText(String.valueOf(cliente.getCpf()));
         txtEmail.setText(String.valueOf(cliente.getEmail()));
         txtEndereco.setText(String.valueOf(cliente.getEndereco()));
         txtTelefone.setText(String.valueOf(cliente.getTelefone()));
-        
+
         this.cliente = cliente;
-        
+
     }
 
     /**
@@ -80,7 +84,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Cliente");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -256,9 +259,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
-        new TelaInicial().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void combGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combGeneroActionPerformed
@@ -276,34 +277,43 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         String cpfClie = valida.getTxtCpf();
         String emailClie = valida.getTxtEmail();
-        String id = valida.getTxtId();
         String nomeClie = valida.getTxtNome();
         String telefoneClie = valida.getTxtTelefone();
         String enderecoClie = txtEndereco.getText();
         String generoClie = (String) combGenero.getSelectedItem();
 
-        Cliente consumidor = new Cliente();
-
         if (valida.validarNome(nomeClie) && valida.validarCpf(cpfClie) && valida.validarEmail(emailClie) && valida.validarTelefone(telefoneClie)) {
 
-            consumidor.setNome(nomeClie);
-            consumidor.setCpf(cpfClie);
-            consumidor.setEmail(emailClie);
-            consumidor.setEndereco(enderecoClie);
-            consumidor.setGenero(generoClie);
-            consumidor.setTelefone(telefoneClie);
+            if (cliente == null) {
+                Cliente cliente = new Cliente(nomeClie, generoClie, cpfClie, emailClie, enderecoClie, telefoneClie);
+                
+                boolean retornoRetorno = ClienteDAO.salvar(cliente);
 
-            boolean retorno = ClienteDAO.salvar(consumidor);
-
-            if (retorno) {
-                new TelaInicial().setVisible(true);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Cliente não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (retornoRetorno) {
+                    new TelaInicial().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cliente não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (cliente != null) {
+                System.out.println("Método de alterar");
+                
+                cliente.setNome(nomeClie);
+                cliente.setGenero(generoClie);
+                cliente.setCpf(cpfClie);
+                cliente.setEmail(emailClie);
+                cliente.setEmail(emailClie);
+                cliente.setTelefone(telefoneClie);
+                
+                boolean retorno = ConsultaClienteDAO.alterarCliente(cliente);
+                if (retorno) {
+                    JOptionPane.showMessageDialog(null, "Cliente atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cliente não atualizado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
         }
-
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseEntered

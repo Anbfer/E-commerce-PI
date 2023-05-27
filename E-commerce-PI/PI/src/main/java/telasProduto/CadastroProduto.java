@@ -40,8 +40,6 @@ public class CadastroProduto extends javax.swing.JFrame {
         validadeData = new com.toedter.calendar.JDateChooser();
         txtValorTotal = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         btnCancelar.setText("VOLTAR");
         btnCancelar.setMaximumSize(new java.awt.Dimension(72, 23));
         btnCancelar.setMinimumSize(new java.awt.Dimension(72, 23));
@@ -197,7 +195,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -224,7 +222,6 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
-        new TelaInicial().setVisible(true);
     }// GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOkActionPerformed
