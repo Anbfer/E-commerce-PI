@@ -289,12 +289,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                 
                 boolean retornoRetorno = ClienteDAO.salvar(cliente);
 
-                if (retornoRetorno) {
-                    new TelaInicial().setVisible(true);
-                    this.setVisible(false);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cliente não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
             } else if (cliente != null) {
                 System.out.println("Método de alterar");
                 
@@ -308,7 +302,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                 boolean retorno = ConsultaClienteDAO.alterarCliente(cliente);
                 if (retorno) {
                     JOptionPane.showMessageDialog(null, "Cliente atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente não atualizado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
                 }

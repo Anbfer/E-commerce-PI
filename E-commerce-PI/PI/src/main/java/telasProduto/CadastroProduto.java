@@ -7,6 +7,8 @@ import validadores.Validadores;
 import crudjdbc.produtoDAO.ProdutoDAO;
 import java.awt.Color;
 import static java.awt.Color.white;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -103,6 +105,8 @@ public class CadastroProduto extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Validade:");
+
+        validadeData.setDateFormatString("dd/MM/yyyy");
 
         txtValorProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +205,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,7 +253,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         if (valida.validarNome(nome) && valida.validarQtd(qtd) && valida.validarValor(valorProd)) {
             produto.setCategoria((String) categoria.getSelectedItem());
-            String validade = validadeData.getDateFormatString();
+            String validade = validadeData.getDate().toString();
             produto.setValidade(validade);
             produto.setDescricao(txtDesc.getText());
             produto.setNomeProduto(nome);
