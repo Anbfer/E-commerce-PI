@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.pi.consultaClienteDAO;
+package crudjdbc.clienteDAO;
 
 import classeCliente.Cliente;
 import java.sql.Connection;
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,6 +45,23 @@ public class ConsultaClienteDAO {
         //Percorrer a lista e adicionar a tabela
         for (Cliente consumidor : lista) {
             modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
+        }
+    }
+    
+    public static void excluir(JTable tabela){
+        int linhaEscolhida = tabela.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+
+        //remove do banco
+        int id = Integer.parseInt(tabela.getValueAt(linhaEscolhida, 0).toString());
+
+        boolean retorno = ConsultaClienteDAO.excluirCliente(id);
+        if (retorno) {
+            //Remove da tabela
+            modelo.removeRow(linhaEscolhida);
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha ao excluir registro!");
         }
     }
     /**

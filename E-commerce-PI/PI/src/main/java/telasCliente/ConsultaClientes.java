@@ -6,7 +6,7 @@ package telasCliente;
 
 import classeCliente.Cliente;
 import telaInicial.TelaInicial;
-import com.mycompany.pi.consultaClienteDAO.ConsultaClienteDAO;
+import crudjdbc.clienteDAO.ConsultaClienteDAO;
 import static java.awt.event.KeyEvent.VK_BACK_SPACE;
 import static java.awt.event.KeyEvent.VK_DELETE;
 import java.util.ArrayList;
@@ -71,6 +71,11 @@ public class ConsultaClientes extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,11 +116,6 @@ public class ConsultaClientes extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-        });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTable1MouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -247,11 +247,9 @@ public class ConsultaClientes extends javax.swing.JFrame {
         ConsultaClienteDAO.pesquisarCpf(jTable1, cpf);
     }//GEN-LAST:event_txtCpfPesquisaKeyReleased
 
-    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
-        if (txtCpfPesquisa.getText().equals("") || txtNomePesquisa.getText().equals("")) {
-            ConsultaClienteDAO.pesquisar(jTable1);
-        }
-    }//GEN-LAST:event_jTable1MouseEntered
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        ConsultaClienteDAO.excluir(jTable1);
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

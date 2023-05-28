@@ -5,7 +5,7 @@
 package telasCliente;
 
 import classeCliente.Cliente;
-import com.mycompany.pi.consultaClienteDAO.ConsultaClienteDAO;
+import crudjdbc.clienteDAO.ConsultaClienteDAO;
 import telaInicial.TelaInicial;
 import validadores.Validadores;
 import crudjdbc.clienteDAO.ClienteDAO;

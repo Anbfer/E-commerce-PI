@@ -9,13 +9,36 @@ package classeProduto;
  * @author Angelo
  */
 public class Produto {
-    private String id;
+
+    private int id;
     private String nomeProduto;
     private String quantidade;
     private String valorProduto;
     private String descricao;
     private String categoria;
     private String validade;
+
+    public Produto() {
+    }
+
+    public Produto(String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria, String validade) {
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        this.valorProduto = valorProduto;
+        this.descricao = descricao;
+        this.categoria = categoria;
+        this.validade = validade;
+    }
+
+    public Produto(int id, String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria, String validade) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        this.valorProduto = valorProduto;
+        this.descricao = descricao;
+        this.categoria = categoria;
+        this.validade = validade;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -24,7 +47,7 @@ public class Produto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
     public String getValidade() {
         return validade;
     }
@@ -40,13 +63,12 @@ public class Produto {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,7 +95,5 @@ public class Produto {
     public void setValorProduto(String valorProduto) {
         this.valorProduto = valorProduto;
     }
-    
-     
-    
+
 }
