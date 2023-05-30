@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package crudjdbc.produtoDAO;
+package clienteDAO;
 
-import classeProduto.Produto;
+import classeCliente.Cliente;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,48 +21,63 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Angelo
  */
-public class ConsultaProdutoDAO {
+public class ConsultaClienteDAO {
 
     public static void pesquisar(JTable tabela) {
-        
-        ArrayList<Produto> lista = ConsultaProdutoDAO.listarProduto();
+
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarCliente();
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
         //Percorrer a lista e adicionar a tabela
-        for (Produto produto : lista) {
-            
-            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), String.valueOf(produto.getValidade()), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getValorProduto())});
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
         }
 
     }
 
     public static void pesquisar(JTable tabela, String nome) {
 
-        ArrayList<Produto> lista = ConsultaProdutoDAO.listarProdutoNome(nome);
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteNome(nome);
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
         //Percorrer a lista e adicionar a tabela
-        for (Produto produto : lista) {
-            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), produto.getValidade(), produto.getQuantidade(), produto.getValorProduto()});
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
         }
     }
+    
+    public static void excluir(JTable tabela){
+        int linhaEscolhida = tabela.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
+        //remove do banco
+        int id = Integer.parseInt(tabela.getValueAt(linhaEscolhida, 0).toString());
+
+        boolean retorno = ConsultaClienteDAO.excluirCliente(id);
+        if (retorno) {
+            //Remove da tabela
+            modelo.removeRow(linhaEscolhida);
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha ao excluir registro!");
+        }
+    }
     /**
      *
      * @param tabela
-     * @param cat
+     * @param cpf
      */
-    public static void pesquisarCat(JTable tabela, String cat) {
+    public static void pesquisarCpf(JTable tabela, String cpf) {
 
-        ArrayList<Produto> lista = ConsultaProdutoDAO.listarProdutoCategoria(cat);
+        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteCpf(cpf);
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
         //Percorrer a lista e adicionar a tabela
-        for (Produto produto : lista) {
-            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), produto.getValidade(), produto.getQuantidade(), produto.getValorProduto()});
+        for (Cliente consumidor : lista) {
+            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
         }
 
     }
@@ -70,8 +87,8 @@ public class ConsultaProdutoDAO {
      * @param nome
      * @return listaRetorno
      */
-    public static ArrayList<Produto> listarProdutoNome(String nome) {
-        ArrayList<Produto> listaRetorno = new ArrayList<>();
+    public static ArrayList<Cliente> listarClienteNome(String nome) {
+        ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
 
         try {
@@ -84,7 +101,7 @@ public class ConsultaProdutoDAO {
 
             //Passo 3 - Preparar o comando SQL
             PreparedStatement comandoSQL
-                    = conexao.prepareStatement("SELECT * FROM produto WHERE nomeProd LIKE ?");
+                    = conexao.prepareStatement("SELECT * FROM cliente WHERE nomeClie LIKE ?");
 
             comandoSQL.setString(1, "%" + nome + "%");
 
@@ -95,65 +112,16 @@ public class ConsultaProdutoDAO {
                 //Percorro o resultset ("tabela" na memória)
                 //e passo os valores a um objeto
                 while (rs.next()) {
-                    Produto produto = new Produto();
-                    produto.setId(rs.getInt("id_produto"));
-                    produto.setNomeProduto(rs.getString("nomeProd"));
-                    produto.setDescricao(rs.getString("descProd"));
-                    produto.setCategoria(rs.getString("catProd"));
-                    produto.setValidade(rs.getString("validadeProd"));
-                    produto.setQuantidade(rs.getString("qtdProd"));
-                    produto.setValorProduto(rs.getString("valProd"));
+                    Cliente cliente = new Cliente();
+                    cliente.setId(rs.getInt("id_cliente"));
+                    cliente.setNome(rs.getString("nomeClie"));
+                    cliente.setCpf(rs.getString("cpf"));
+                    cliente.setGenero(rs.getString("genero"));
+                    cliente.setEmail(rs.getString("email"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setTelefone(rs.getString("telefone"));
 
-                    listaRetorno.add(produto);
-
-                }
-            }
-
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Erro ao carregar o Driver" + ex.getMessage());
-        } catch (SQLException ex) {
-            System.out.println("Erro ao abrir a conexao" + ex.getMessage());
-        }
-
-        return listaRetorno;
-
-    }
-
-    public static ArrayList<Produto> listarProdutoCategoria(String cat) {
-        ArrayList<Produto> listaRetorno = new ArrayList<>();
-        Connection conexao = null;
-
-        try {
-            //Carregar Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/javamarketbd";
-
-            //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
-
-            //Passo 3 - Preparar o comando SQL
-            PreparedStatement comandoSQL
-                    = conexao.prepareStatement("SELECT * FROM produto WHERE catProd LIKE ?");
-
-            comandoSQL.setString(1, "%" + cat + "%");
-
-            //Passo 4 - Executar o comando SQL
-            ResultSet rs = comandoSQL.executeQuery();
-
-            if (rs != null) {
-                //Percorro o resultset ("tabela" na memória)
-                //e passo os valores a um objeto
-                while (rs.next()) {
-                    Produto produto = new Produto();
-                    produto.setId(rs.getInt("id_produto"));
-                    produto.setNomeProduto(rs.getString("nomeProd"));
-                    produto.setDescricao(rs.getString("descProd"));
-                    produto.setCategoria(rs.getString("catProd"));
-                    produto.setValidade(rs.getString("validadeProd"));
-                    produto.setQuantidade(rs.getString("qtdProd"));
-                    produto.setValorProduto(rs.getString("valProd"));
-
-                    listaRetorno.add(produto);
+                    listaRetorno.add(cliente);
 
                 }
             }
@@ -168,8 +136,8 @@ public class ConsultaProdutoDAO {
 
     }
 
-    public static ArrayList<Produto> listarProduto() {
-        ArrayList<Produto> listaRetorno = new ArrayList<>();
+    public static ArrayList<Cliente> listarClienteCpf(String cpf) {
+        ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
 
         try {
@@ -182,7 +150,9 @@ public class ConsultaProdutoDAO {
 
             //Passo 3 - Preparar o comando SQL
             PreparedStatement comandoSQL
-                    = conexao.prepareStatement("SELECT * FROM produto");
+                    = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
+
+            comandoSQL.setString(1, "%" + cpf + "%");
 
             //Passo 4 - Executar o comando SQL
             ResultSet rs = comandoSQL.executeQuery();
@@ -191,16 +161,63 @@ public class ConsultaProdutoDAO {
                 //Percorro o resultset ("tabela" na memória)
                 //e passo os valores a um objeto
                 while (rs.next()) {
-                    Produto produto = new Produto();
-                    produto.setId(rs.getInt("id_produto"));
-                    produto.setNomeProduto(rs.getString("nomeProd"));
-                    produto.setDescricao(rs.getString("descProd"));
-                    produto.setCategoria(rs.getString("catProd"));
-                    produto.setValidade(rs.getString("validadeProd"));
-                    produto.setQuantidade(String.valueOf(rs.getInt("qtdProd")));
-                    produto.setValorProduto(String.valueOf(rs.getFloat("valProd")));
+                    Cliente cliente = new Cliente();
+                    cliente.setId(rs.getInt("id_cliente"));
+                    cliente.setNome(rs.getString("nomeClie"));
+                    cliente.setCpf(rs.getString("cpf"));
+                    cliente.setGenero(rs.getString("genero"));
+                    cliente.setEmail(rs.getString("email"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setTelefone(rs.getString("telefone"));
 
-                    listaRetorno.add(produto);
+                    listaRetorno.add(cliente);
+
+                }
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro ao carregar o Driver" + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Erro ao abrir a conexao" + ex.getMessage());
+        }
+
+        return listaRetorno;
+
+    }
+
+    public static ArrayList<Cliente> listarCliente() {
+        ArrayList<Cliente> listaRetorno = new ArrayList<>();
+        Connection conexao = null;
+
+        try {
+            //Carregar Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/javamarketbd";
+
+            //Passo 2 - Abrir a conexao
+            conexao = DriverManager.getConnection(url, "root", "admin");
+
+            //Passo 3 - Preparar o comando SQL
+            PreparedStatement comandoSQL
+                    = conexao.prepareStatement("SELECT * FROM cliente");
+
+            //Passo 4 - Executar o comando SQL
+            ResultSet rs = comandoSQL.executeQuery();
+
+            if (rs != null) {
+                //Percorro o resultset ("tabela" na memória)
+                //e passo os valores a um objeto
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setId(rs.getInt("id_cliente"));
+                    cliente.setNome(rs.getString("nomeClie"));
+                    cliente.setGenero(rs.getString("genero"));
+                    cliente.setCpf(rs.getString("cpf"));
+                    cliente.setEmail(rs.getString("email"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setTelefone(rs.getString("telefone"));
+
+                    listaRetorno.add(cliente);
 
                 }
             }
@@ -216,10 +233,10 @@ public class ConsultaProdutoDAO {
 
     /**
      *
-     * @param produto
+     * @param cliente
      * @return
      */
-    public static boolean alterarProduto(Produto produto) {
+    public static boolean alterarCliente(Cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
 
@@ -232,15 +249,15 @@ public class ConsultaProdutoDAO {
             conexao = DriverManager.getConnection(url, "root", "admin");
 
             //Passo 3 - Prepara o comando SQL
-            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE produto SET nomeProd = ?, descProd = ?, catProd = ?, validadeProd = ?, qtdProd = ?, valProd = ? where id_produto = ?");
+            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE cliente SET nomeClie = ?, genero = ?, cpf = ?, email = ?, endereco = ?, telefone = ? where id_cliente = ?");
 
-            comandoSQL.setString(1, produto.getNomeProduto());
-            comandoSQL.setString(2, produto.getDescricao());
-            comandoSQL.setString(3, produto.getCategoria());
-            comandoSQL.setString(4, produto.getValidade());
-            comandoSQL.setString(5, produto.getQuantidade());
-            comandoSQL.setString(6, produto.getValorProduto());
-            comandoSQL.setInt(7, produto.getId());
+            comandoSQL.setString(1, cliente.getNome());
+            comandoSQL.setString(2, cliente.getGenero());
+            comandoSQL.setString(3, cliente.getCpf());
+            comandoSQL.setString(4, cliente.getEmail());
+            comandoSQL.setString(5, cliente.getEndereco());
+            comandoSQL.setString(6, cliente.getTelefone());
+            comandoSQL.setInt(7, cliente.getId());
 
             //Passo 4 - Executar comando SQL
             int linhasAfetadas = comandoSQL.executeUpdate();
@@ -259,7 +276,7 @@ public class ConsultaProdutoDAO {
 
     }//Fim metodo alterar
 
-    public static boolean excluirProduto(int id) {
+    public static boolean excluirCliente(int id) {
 
         boolean retorno = false;
         Connection conexao = null;
@@ -274,7 +291,7 @@ public class ConsultaProdutoDAO {
 
             //Passo 3 - Prepara o comando SQL
             PreparedStatement comandoSQL
-                    = conexao.prepareStatement("DELETE FROM produto WHERE id_produto = ? ");
+                    = conexao.prepareStatement("DELETE FROM cliente WHERE id_cliente = ? ");
 
             comandoSQL.setInt(1, id);
 

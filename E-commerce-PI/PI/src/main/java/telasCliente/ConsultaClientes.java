@@ -6,7 +6,7 @@ package telasCliente;
 
 import classeCliente.Cliente;
 import telaInicial.TelaInicial;
-import crudjdbc.clienteDAO.ConsultaClienteDAO;
+import clienteDAO.ConsultaClienteDAO;
 import static java.awt.event.KeyEvent.VK_BACK_SPACE;
 import static java.awt.event.KeyEvent.VK_DELETE;
 import java.util.ArrayList;

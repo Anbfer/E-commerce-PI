@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package crudjdbc.produtoDAO;
+package produtoDAO;
 
 import classeProduto.Produto;
 import java.sql.Connection;

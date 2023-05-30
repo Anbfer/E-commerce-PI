@@ -20,6 +20,10 @@ public class Cliente {
     public Cliente() {
     }
     
+    public Cliente (int id, String nome){
+        this.id = id;
+        this.nome = nome;
+    }
     
     public Cliente(int id, String nome, String genero, String cpf, String email, String endereco, String telefone) {
         this.id = id;

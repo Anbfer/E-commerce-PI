@@ -5,10 +5,10 @@
 package telasCliente;
 
 import classeCliente.Cliente;
-import crudjdbc.clienteDAO.ConsultaClienteDAO;
+import clienteDAO.ConsultaClienteDAO;
 import telaInicial.TelaInicial;
 import validadores.Validadores;
-import crudjdbc.clienteDAO.ClienteDAO;
+import clienteDAO.ClienteDAO;
 import java.awt.Color;
 import static java.awt.Color.white;
 import javax.swing.JOptionPane;

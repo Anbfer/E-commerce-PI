@@ -22,8 +22,8 @@ public class Produto {
 
     public Produto() {
     }
-
-    public Produto(String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria, String validade) {
+    
+        public Produto(String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria, String validade) {
         this.nomeProduto = nomeProduto;
         this.quantidade = quantidade;
         this.valorProduto = valorProduto;
@@ -31,7 +31,7 @@ public class Produto {
         this.categoria = categoria;
         this.validade = validade;
     }
-
+    
     public Produto(int id, String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria, String validade) {
         this.id = id;
         this.nomeProduto = nomeProduto;
@@ -40,6 +40,15 @@ public class Produto {
         this.descricao = descricao;
         this.categoria = categoria;
         this.validade = validade;
+    }
+
+    public Produto(int id, String nomeProduto, String quantidade, String valorProduto, String descricao, String categoria) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        this.valorProduto = valorProduto;
+        this.descricao = descricao;
+        this.categoria = categoria;
     }
 
     public String getDescricao() {

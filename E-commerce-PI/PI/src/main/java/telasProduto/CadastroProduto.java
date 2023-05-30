@@ -1,13 +1,15 @@
 package telasProduto;
 
 import classeProduto.Produto;
+import produtoDAO.ConsultaProdutoDAO;
 import telaInicial.TelaInicial;
 import telaVenda.TelaVendas;
 import validadores.Validadores;
-import crudjdbc.produtoDAO.ProdutoDAO;
+import produtoDAO.ProdutoDAO;
 import java.awt.Color;
 import static java.awt.Color.white;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,22 +18,23 @@ import javax.swing.JOptionPane;
 public class CadastroProduto extends javax.swing.JFrame {
 
     Produto produto;
-    
+
     public CadastroProduto() {
         initComponents();
     }
-    
-    public CadastroProduto (Produto produto) {
+
+    public CadastroProduto(Produto produto) throws ParseException {
         initComponents();
-        
-        
+
         txtNome.setText(String.valueOf(produto.getNomeProduto()));
         txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
         txtDesc.setText(String.valueOf(produto.getDescricao()));
         txtValorProduto.setText(String.valueOf(produto.getValorProduto()));
-        //validadeData.setDate(Date.valueOf(produto.getValidade()));
+        String validade = produto.getValidade();
+        java.util.Date validadeFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(validade);
+        validadeData.setDate(validadeFormatada);
         categoria.setSelectedItem(String.valueOf(produto.getCategoria()));
-        
+
         this.produto = produto;
     }
 
@@ -261,31 +264,40 @@ public class CadastroProduto extends javax.swing.JFrame {
         valida.setTxtNome(txtNome.getText());
         valida.setTxtQtd(txtQuantidade.getText());
 
-        String nome = valida.getTxtNome();
+        String nomeProd = valida.getTxtNome();
         String qtd = valida.getTxtQtd();
         String valorProd = txtValorProduto.getText();
 
-        Produto produto = new Produto();
-        
         SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
-        if (valida.validarNome(nome) && valida.validarQtd(qtd) && valida.validarValor(valorProd)) {
-            produto.setCategoria((String) categoria.getSelectedItem());
-            String validade = formataData.format(validadeData.getDate());
-            produto.setValidade(validade);
-            produto.setDescricao(txtDesc.getText());
-            produto.setNomeProduto(nome);
-            produto.setQuantidade(qtd);
-            produto.setValorProduto(txtValorProduto.getText());
+        if (valida.validarNome(nomeProd) && valida.validarQtd(qtd) && valida.validarValor(valorProd)) {
 
-            boolean retorno = ProdutoDAO.salvarProd(produto);
+            if (produto == null) {
+                Produto produto = new Produto(nomeProd, qtd, valorProd, txtDesc.getText(), (String) categoria.getSelectedItem(), formataData.format(validadeData.getDate()));
 
-            if (!retorno) {
-                JOptionPane.showMessageDialog(null, "Produto não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+                boolean retorno = ProdutoDAO.salvarProd(produto);
+
+            } else if (produto != null) {
+                
+                produto.setNomeProduto(nomeProd);
+                produto.setQuantidade(qtd);
+                produto.setValorProduto(txtValorProduto.getText());
+                produto.setDescricao(txtDesc.getText());
+                produto.setCategoria((String) categoria.getSelectedItem());
+                String validade = formataData.format(validadeData.getDate());
+                produto.setValidade(validade);
+
+                boolean retorno = ConsultaProdutoDAO.alterarProduto(produto);
+
+                if (!retorno) {
+                    JOptionPane.showMessageDialog(null, "Produto não cadastrado, tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Produto atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
 
         }
-
     }// GEN-LAST:event_btnOkActionPerformed
 
     private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnOkMouseEntered

@@ -5,11 +5,13 @@
 package telasProduto;
 
 import classeProduto.Produto;
-import crudjdbc.produtoDAO.ConsultaProdutoDAO;
+import produtoDAO.ConsultaProdutoDAO;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -41,6 +43,7 @@ public class ConsultaProdutos extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,11 +52,6 @@ public class ConsultaProdutos extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
-        txtNomePesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomePesquisaActionPerformed(evt);
-            }
-        });
         txtNomePesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomePesquisaKeyReleased(evt);
@@ -62,17 +60,14 @@ public class ConsultaProdutos extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Descrição", "Categoria", "Validade", "Quantidade", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -96,6 +91,18 @@ public class ConsultaProdutos extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("VOLTAR");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +126,8 @@ public class ConsultaProdutos extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(txtNomePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(btnPesquisar))))
+                            .addComponent(btnPesquisar)))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,26 +141,23 @@ public class ConsultaProdutos extends javax.swing.JFrame {
                     .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomePesquisaActionPerformed
-
     private void txtNomePesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomePesquisaKeyReleased
-        ConsultaProdutoDAO.listarProdutoNome(txtNomePesquisa.getText());
+        ConsultaProdutoDAO.pesquisar(jTable1, txtNomePesquisa.getText());
     }//GEN-LAST:event_txtNomePesquisaKeyReleased
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -162,27 +167,41 @@ public class ConsultaProdutos extends javax.swing.JFrame {
         modelo.setRowCount(0);
         //Percorrer a lista e adicionar a tabela
         for (Produto produto : lista) {
-            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(),produto.getValidade(), produto.getQuantidade(), produto.getValorProduto()});
+            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), produto.getValidade(), produto.getQuantidade(), produto.getValorProduto()});
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int linhaSel = jTable1.getSelectedRow();
-        DefaultTableModel modeloTabela = (DefaultTableModel) jTable1.getModel();
 
-        int idProdutoSel = Integer.parseInt(modeloTabela.getValueAt(linhaSel, 0).toString());
-        String nomeProd = modeloTabela.getValueAt(linhaSel, 1).toString();
-        String descProd = modeloTabela.getValueAt(linhaSel, 2).toString();
-        String catProd = modeloTabela.getValueAt(linhaSel, 3).toString();
-        String validadeProd = modeloTabela.getValueAt(linhaSel, 4).toString();
-        String qtdProd = modeloTabela.getValueAt(linhaSel, 5).toString();
-        String valProd = modeloTabela.getValueAt(linhaSel, 6).toString();
+        try {
+            int linhaSel = jTable1.getSelectedRow();
+            DefaultTableModel modeloTabela = (DefaultTableModel) jTable1.getModel();
+            
+            int idProdutoSel = Integer.parseInt(modeloTabela.getValueAt(linhaSel, 0).toString());
+            String nomeProd = modeloTabela.getValueAt(linhaSel, 1).toString();
+            String descProd = modeloTabela.getValueAt(linhaSel, 2).toString();
+            String catProd = modeloTabela.getValueAt(linhaSel, 3).toString();
+            String validadeProd = modeloTabela.getValueAt(linhaSel, 4).toString();
+            String qtdProd = modeloTabela.getValueAt(linhaSel, 5).toString();
+            String valProd = modeloTabela.getValueAt(linhaSel, 6).toString();
+            
+            Produto produto = new Produto(idProdutoSel, nomeProd, qtdProd, valProd, descProd, catProd, validadeProd);
+            
+            CadastroProduto alteraProduto = new CadastroProduto(produto);
+            alteraProduto.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(ConsultaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        Produto produto = new Produto(idProdutoSel, nomeProd, descProd, catProd, validadeProd, qtdProd, valProd);
-
-        CadastroProduto alteraProduto = new CadastroProduto(produto);
-        alteraProduto.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        ConsultaProdutoDAO.excluir(jTable1);
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +242,7 @@ public class ConsultaProdutos extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelTitulo;

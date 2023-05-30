@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package crudjdbc.clienteDAO;
+package consultaClienteDAO;
 
 import classeCliente.Cliente;
 import java.sql.Connection;
@@ -13,74 +13,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Angelo
  */
 public class ConsultaClienteDAO {
-
-    public static void pesquisar(JTable tabela) {
-
-        ArrayList<Cliente> lista = ConsultaClienteDAO.listarCliente();
-
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setRowCount(0);
-        //Percorrer a lista e adicionar a tabela
-        for (Cliente consumidor : lista) {
-            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
-        }
-
-    }
-
-    public static void pesquisar(JTable tabela, String nome) {
-
-        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteNome(nome);
-
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setRowCount(0);
-        //Percorrer a lista e adicionar a tabela
-        for (Cliente consumidor : lista) {
-            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
-        }
-    }
-    
-    public static void excluir(JTable tabela){
-        int linhaEscolhida = tabela.getSelectedRow();
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-
-        //remove do banco
-        int id = Integer.parseInt(tabela.getValueAt(linhaEscolhida, 0).toString());
-
-        boolean retorno = ConsultaClienteDAO.excluirCliente(id);
-        if (retorno) {
-            //Remove da tabela
-            modelo.removeRow(linhaEscolhida);
-            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Falha ao excluir registro!");
-        }
-    }
-    /**
-     *
-     * @param tabela
-     * @param cpf
-     */
-    public static void pesquisarCpf(JTable tabela, String cpf) {
-
-        ArrayList<Cliente> lista = ConsultaClienteDAO.listarClienteCpf(cpf);
-
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setRowCount(0);
-        //Percorrer a lista e adicionar a tabela
-        for (Cliente consumidor : lista) {
-            modelo.addRow(new String[]{String.valueOf(consumidor.getId()), consumidor.getNome(), consumidor.getGenero(), consumidor.getCpf(), consumidor.getEmail(), consumidor.getEndereco(), consumidor.getTelefone()});
-        }
-
-    }
 
     /**
      *
@@ -97,7 +35,7 @@ public class ConsultaClienteDAO {
             String url = "jdbc:mysql://localhost:3306/javamarketbd";
 
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
+            conexao = DriverManager.getConnection(url, "root", "");
 
             //Passo 3 - Preparar o comando SQL
             PreparedStatement comandoSQL
@@ -135,8 +73,8 @@ public class ConsultaClienteDAO {
         return listaRetorno;
 
     }
-
-    public static ArrayList<Cliente> listarClienteCpf(String cpf) {
+    
+        public static ArrayList<Cliente> listarClienteCpf(String cpf) {
         ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
 
@@ -146,14 +84,14 @@ public class ConsultaClienteDAO {
             String url = "jdbc:mysql://localhost:3306/javamarketbd";
 
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
+            conexao = DriverManager.getConnection(url, "root", "");
 
             //Passo 3 - Preparar o comando SQL
             PreparedStatement comandoSQL
                     = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
 
             comandoSQL.setString(1, "%" + cpf + "%");
-
+            
             //Passo 4 - Executar o comando SQL
             ResultSet rs = comandoSQL.executeQuery();
 
@@ -195,7 +133,7 @@ public class ConsultaClienteDAO {
             String url = "jdbc:mysql://localhost:3306/javamarketbd";
 
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
+            conexao = DriverManager.getConnection(url, "root", "");
 
             //Passo 3 - Preparar o comando SQL
             PreparedStatement comandoSQL
@@ -246,10 +184,10 @@ public class ConsultaClienteDAO {
             String url = "jdbc:mysql://localhost:3306/javamarketbd";
 
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
+            conexao = DriverManager.getConnection(url, "root", "");
 
             //Passo 3 - Prepara o comando SQL
-            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE cliente SET nomeClie = ?, genero = ?, cpf = ?, email = ?, endereco = ?, telefone = ? where id_cliente = ?");
+            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE cliente SET nomeClie = ?, genero = ?, cpf = ?, email = ?, endereco = ?, telefone = ? where id = ?");
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getGenero());
@@ -258,6 +196,7 @@ public class ConsultaClienteDAO {
             comandoSQL.setString(5, cliente.getEndereco());
             comandoSQL.setString(6, cliente.getTelefone());
             comandoSQL.setInt(7, cliente.getId());
+            
 
             //Passo 4 - Executar comando SQL
             int linhasAfetadas = comandoSQL.executeUpdate();
@@ -287,11 +226,11 @@ public class ConsultaClienteDAO {
             String url = "jdbc:mysql://localhost:3306/javamarketbd";
 
             //Passo 2 - Abrir a conexao
-            conexao = DriverManager.getConnection(url, "root", "admin");
+            conexao = DriverManager.getConnection(url, "root", "");
 
             //Passo 3 - Prepara o comando SQL
             PreparedStatement comandoSQL
-                    = conexao.prepareStatement("DELETE FROM cliente WHERE id_cliente = ? ");
+                    = conexao.prepareStatement("DELETE FROM cliente WHERE id_cliente = ?");
 
             comandoSQL.setInt(1, id);
 
