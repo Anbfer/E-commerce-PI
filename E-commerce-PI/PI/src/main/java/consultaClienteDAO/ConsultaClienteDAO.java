@@ -15,15 +15,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Classe responsável por realizar consultas no banco de dados relacionadas aos
+ * clientes.
+ *
+ * Essa classe possui métodos para listar clientes pelo nome, pelo CPF, e listar
+ * todos os clientes. Também possui métodos para alterar e excluir um cliente do
+ * banco de dados.
+ *
+ * TODO: Incluir Javadoc de autoria
  *
  * @author Angelo
  */
 public class ConsultaClienteDAO {
 
     /**
+     * Lista os clientes que possuem um determinado nome.
      *
-     * @param nome
-     * @return listaRetorno
+     * @param nome O nome a ser pesquisado.
+     * @return A lista de clientes com o nome informado.
      */
     public static ArrayList<Cliente> listarClienteNome(String nome) {
         ArrayList<Cliente> listaRetorno = new ArrayList<>();
@@ -73,8 +82,14 @@ public class ConsultaClienteDAO {
         return listaRetorno;
 
     }
-    
-        public static ArrayList<Cliente> listarClienteCpf(String cpf) {
+
+    /**
+     * Lista os clientes que possuem um determinado CPF.
+     *
+     * @param cpf O CPF a ser pesquisado.
+     * @return A lista de clientes com o CPF informado.
+     */
+    public static ArrayList<Cliente> listarClienteCpf(String cpf) {
         ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
 
@@ -91,7 +106,7 @@ public class ConsultaClienteDAO {
                     = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf LIKE ?");
 
             comandoSQL.setString(1, "%" + cpf + "%");
-            
+
             //Passo 4 - Executar o comando SQL
             ResultSet rs = comandoSQL.executeQuery();
 
@@ -123,6 +138,11 @@ public class ConsultaClienteDAO {
 
     }
 
+    /**
+     * Lista todos os clientes.
+     *
+     * @return A lista de todos os clientes.
+     */
     public static ArrayList<Cliente> listarCliente() {
         ArrayList<Cliente> listaRetorno = new ArrayList<>();
         Connection conexao = null;
@@ -170,9 +190,11 @@ public class ConsultaClienteDAO {
     }//Fim do método listar
 
     /**
+     * Altera os dados de um cliente no banco de dados.
      *
-     * @param cliente
-     * @return
+     * @param cliente O cliente com os dados atualizados.
+     * @return true se a alteração foi realizada com sucesso, false caso
+     * contrário.
      */
     public static boolean alterarCliente(Cliente cliente) {
         boolean retorno = false;
@@ -196,7 +218,6 @@ public class ConsultaClienteDAO {
             comandoSQL.setString(5, cliente.getEndereco());
             comandoSQL.setString(6, cliente.getTelefone());
             comandoSQL.setInt(7, cliente.getId());
-            
 
             //Passo 4 - Executar comando SQL
             int linhasAfetadas = comandoSQL.executeUpdate();
@@ -215,6 +236,13 @@ public class ConsultaClienteDAO {
 
     }//Fim metodo alterar
 
+    /**
+     * Exclui um cliente do banco de dados.
+     *
+     * @param id O ID do cliente a ser excluído.
+     * @return true se a exclusão foi realizada com sucesso, false caso
+     * contrário.
+     */
     public static boolean excluirCliente(int id) {
 
         boolean retorno = false;

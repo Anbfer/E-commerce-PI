@@ -12,11 +12,18 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
+ * Classe responsável pela manipulação dos dados dos produtos no banco de dados.
  *
  * @author murilo.scantante
  */
 public class ProdutoDAO {
 
+    /**
+     * Salva um objeto Produto no banco de dados.
+     *
+     * @param obj o objeto Produto a ser salvo
+     * @return true se o produto for salvo com sucesso, false caso contrário
+     */
     public static boolean salvarProd(Produto obj) {
 
         boolean retorno = false;

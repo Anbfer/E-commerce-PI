@@ -19,11 +19,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Esta classe fornece métodos para consulta de produtos no banco de dados.
  *
  * @author Angelo
  */
 public class ConsultaProdutoDAO {
 
+    /**
+     * Pesquisa todos os produtos e popula a tabela com os resultados.
+     *
+     * @param tabela A tabela onde os resultados serão exibidos.
+     */
     public static void pesquisar(JTable tabela) {
 
         ArrayList<Produto> lista = ConsultaProdutoDAO.listarProduto();
@@ -38,6 +44,12 @@ public class ConsultaProdutoDAO {
 
     }
 
+    /**
+     * Pesquisa produtos pelo nome e popula a tabela com os resultados.
+     *
+     * @param tabela A tabela onde os resultados serão exibidos.
+     * @param nome O nome do produto a ser pesquisado.
+     */
     public static void pesquisar(JTable tabela, String nome) {
 
         ArrayList<Produto> lista = ConsultaProdutoDAO.listarProdutoNome(nome);
@@ -51,9 +63,10 @@ public class ConsultaProdutoDAO {
     }
 
     /**
+     * Pesquisa produtos por categoria e popula a tabela com os resultados.
      *
-     * @param tabela
-     * @param cat
+     * @param tabela A tabela onde os resultados serão exibidos.
+     * @param cat A categoria dos produtos a serem pesquisados.
      */
     public static void pesquisarCat(JTable tabela, String cat) {
 
@@ -69,9 +82,10 @@ public class ConsultaProdutoDAO {
     }
 
     /**
+     * Lista todos os produtos com base no nome.
      *
-     * @param nome
-     * @return listaRetorno
+     * @param nome O nome do produto a ser pesquisado.
+     * @return Uma lista de produtos com base no nome pesquisado.
      */
     public static ArrayList<Produto> listarProdutoNome(String nome) {
         ArrayList<Produto> listaRetorno = new ArrayList<>();
@@ -121,6 +135,12 @@ public class ConsultaProdutoDAO {
 
     }
 
+    /**
+     * Lista todos os produtos com base na categoria.
+     *
+     * @param cat A categoria dos produtos a serem pesquisados.
+     * @return Uma lista de produtos com base na categoria pesquisada.
+     */
     public static ArrayList<Produto> listarProdutoCategoria(String cat) {
         ArrayList<Produto> listaRetorno = new ArrayList<>();
         Connection conexao = null;
@@ -170,6 +190,11 @@ public class ConsultaProdutoDAO {
 
     }
 
+    /**
+     * Lista todos os produtos.
+     *
+     * @return Uma lista de todos os produtos.
+     */
     public static ArrayList<Produto> listarProduto() {
         ArrayList<Produto> listaRetorno = new ArrayList<>();
         Connection conexao = null;
@@ -217,9 +242,11 @@ public class ConsultaProdutoDAO {
     }//Fim do método listar
 
     /**
+     * Altera um produto existente.
      *
-     * @param produto
-     * @return
+     * @param produto O objeto Produto contendo as informações atualizadas do
+     * produto.
+     * @return true se a alteração for bem-sucedida, false caso contrário.
      */
     public static boolean alterarProduto(Produto produto) {
         boolean retorno = false;
@@ -260,8 +287,14 @@ public class ConsultaProdutoDAO {
         return retorno;
 
     }//Fim metodo alterar
-    
-    public static void excluir(JTable tabela){
+
+    /**
+     * Função sem retono que executa a busca dentro da tabela do item a ser
+     * excluido e chama a função de excluirProduto para tal
+     *
+     * @param tabela
+     */
+    public static void excluir(JTable tabela) {
         int linhaEscolhida = tabela.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
@@ -277,7 +310,13 @@ public class ConsultaProdutoDAO {
             JOptionPane.showMessageDialog(null, "Falha ao excluir registro!");
         }
     }
-    
+
+    /**
+     * Exclui um produto.
+     *
+     * @param id O ID do produto a ser excluído.
+     * @return true se a exclusão for bem-sucedida, false caso contrário.
+     */
     public static boolean excluirProduto(int id) {
 
         boolean retorno = false;
