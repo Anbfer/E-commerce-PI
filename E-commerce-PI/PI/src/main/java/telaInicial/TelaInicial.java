@@ -9,6 +9,7 @@ import telasProduto.CadastroProduto;
 import telasCliente.ConsultaClientes;
 import telasCliente.CadastroCliente;
 import javax.swing.JOptionPane;
+import telasProduto.ConsultaProdutos;
 
 /**
  *
@@ -337,7 +338,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultaClienteActionPerformed
 
     private void btnConsultaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaProdutoActionPerformed
-        // TODO add your handling code here:
+        new ConsultaProdutos().setVisible(true);
     }//GEN-LAST:event_btnConsultaProdutoActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed

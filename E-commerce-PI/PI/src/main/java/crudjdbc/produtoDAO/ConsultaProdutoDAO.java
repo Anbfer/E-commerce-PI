@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,14 +22,15 @@ import javax.swing.table.DefaultTableModel;
 public class ConsultaProdutoDAO {
 
     public static void pesquisar(JTable tabela) {
-
+        
         ArrayList<Produto> lista = ConsultaProdutoDAO.listarProduto();
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
         //Percorrer a lista e adicionar a tabela
         for (Produto produto : lista) {
-            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), produto.getValidade(), produto.getQuantidade(), produto.getValorProduto()});
+            
+            modelo.addRow(new String[]{String.valueOf(produto.getId()), produto.getNomeProduto(), produto.getDescricao(), produto.getCategoria(), String.valueOf(produto.getValidade()), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getValorProduto())});
         }
 
     }
@@ -50,7 +52,7 @@ public class ConsultaProdutoDAO {
      * @param tabela
      * @param cat
      */
-    public static void pesquisarCpf(JTable tabela, String cat) {
+    public static void pesquisarCat(JTable tabela, String cat) {
 
         ArrayList<Produto> lista = ConsultaProdutoDAO.listarProdutoCategoria(cat);
 
@@ -195,8 +197,8 @@ public class ConsultaProdutoDAO {
                     produto.setDescricao(rs.getString("descProd"));
                     produto.setCategoria(rs.getString("catProd"));
                     produto.setValidade(rs.getString("validadeProd"));
-                    produto.setQuantidade(rs.getString("qtdProd"));
-                    produto.setValorProduto(rs.getString("valProd"));
+                    produto.setQuantidade(String.valueOf(rs.getInt("qtdProd")));
+                    produto.setValorProduto(String.valueOf(rs.getFloat("valProd")));
 
                     listaRetorno.add(produto);
 

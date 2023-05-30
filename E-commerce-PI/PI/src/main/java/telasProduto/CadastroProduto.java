@@ -15,8 +15,24 @@ import javax.swing.JOptionPane;
 
 public class CadastroProduto extends javax.swing.JFrame {
 
+    Produto produto;
+    
     public CadastroProduto() {
         initComponents();
+    }
+    
+    public CadastroProduto (Produto produto) {
+        initComponents();
+        
+        
+        txtNome.setText(String.valueOf(produto.getNomeProduto()));
+        txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
+        txtDesc.setText(String.valueOf(produto.getDescricao()));
+        txtValorProduto.setText(String.valueOf(produto.getValorProduto()));
+        //validadeData.setDate(Date.valueOf(produto.getValidade()));
+        categoria.setSelectedItem(String.valueOf(produto.getCategoria()));
+        
+        this.produto = produto;
     }
 
     @SuppressWarnings("unchecked")

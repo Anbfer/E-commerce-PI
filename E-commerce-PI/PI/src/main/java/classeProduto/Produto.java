@@ -4,6 +4,8 @@
  */
 package classeProduto;
 
+import java.sql.Date;
+
 /**
  *
  * @author Angelo
